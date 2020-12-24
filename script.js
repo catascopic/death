@@ -42,7 +42,7 @@ function loadQueue() {
 			row: row
 		});
 	}
-	shuffle(queue, used);
+	shuffle(queue, queue.length - rowCount);
 }
 
 function update() {
@@ -53,7 +53,7 @@ function update() {
 	
 	let spawn = Math.floor(buffer / rate);
 	buffer %= rate;
-	used += spawn;
+	used += spawn;	
 	rate = Math.floor(BASE_RATE / (1 + SPEED * used / baseRowCount));
 	
 	if (spawn > queue.length - used) {
@@ -70,10 +70,8 @@ function update() {
 }
 
 function draw() {
-	
 	context.clearRect(0, 0, canvas.width, canvas.height);
 	context.fillStyle = 'black';
-	
 	context.rect(0, 0, canvas.width, canvas.height);
 	context.fill();
 	context.fillStyle = 'white';
@@ -89,7 +87,6 @@ function drawCircle(x, y, r) {
 	context.arc(x, y, r, 0, 2 * Math.PI);
 	context.fill();
 }
-
 
 function shuffle(array, start) {
 	for (let i = array.length - 1; i > start; i--) {
